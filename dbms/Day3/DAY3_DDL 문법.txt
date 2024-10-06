@@ -1,0 +1,67 @@
+DDL (Data Define Language)
+스키마 내의 객체를 정의하고 관리할 때 사용
+create / alter/ drop
+데이터를 구성하는 논리적인 구조(데이터베이스 또는
+테이블)를 추가, 수정, 삭제 할 수 있습니다.
+
+
+1. SQL 명령문은 대소문자를 가리지 않는다.
+2. 여러줄에 걸쳐 명령문을 입력할 수 있다.
+3. 문장이 끝나면 반드시 ;(세미콜론) 사용
+
+데이터 베이스 전체적으로 보는 명령어
+show databases;
+
+//데이터 베이스 생성하기
+create database 데이터베이스이름;
+
+//데이터 베이스 사용
+use 데이터베이스 이름;
+
+//데이터 테이블 생성하기
+create table 테이블 이름
+(
+   칼럼명 데이터타입,
+   primary key()	
+);
+
+//테이블 보기
+desc 테이블이름;
+---------------------------------------- create  명령어(생성)
+
+alter(수정)
+값 추가하기
+문법 : alter table 테이블이름 add column 필드이름 데이터타입;
+
+값 삭제하기
+alter table 테이블이름 drop column 필드이름;
+
+칼럼 이름 변경하기
+alter table 테이블이름 change column 잘못입력한이름 새이름데이터타입
+
+테이블에 칼럼 타입 변경하기
+alter table 테이블 이름 modify column 원래있는필드이름 새로운데이터타입;
+
+테이블 이름 바꾸기
+alter table 테이블 이름 rename 변경할 테이블 이름;
+student_info  -> std_info;
+
+//테이블 이름 보기
+show tables;
+std_info
+
+프라이머리 키 삭제
+alter table 테이블이름 drop primary key;
+
+프라이머리 키 재정의하기
+alter table 테이블이름 add primary key(기본키가 주어질 필드이름);
+
+테이블 삭제
+drop table 테이블이름;
+
+데이터 베이스 삭제
+drop database 데이터 베이스 이름;
+
+show databases;
+
+

@@ -1,0 +1,334 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.39 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> create databases student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases student' at line 1
+mysql> create database student;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use student;
+Database changed
+mysql> create table student_info(
+    -> std_id varchar(100) not null,
+    -> std_name varchar(100) not null,
+    -> std_age int not null,
+    -> std_grade int not null,
+    -> std_gender varchar(100) not null,
+    -> std_phone varchar(100) not null,
+    -> primary key(std_id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc student_info;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| std_id     | varchar(100) | NO   | PRI | NULL    |       |
+| std_name   | varchar(100) | NO   |     | NULL    |       |
+| std_age    | int          | NO   |     | NULL    |       |
+| std_grade  | int          | NO   |     | NULL    |       |
+| std_gender | varchar(100) | NO   |     | NULL    |       |
+| std_phone  | varchar(100) | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> alter table student_info
+    -> add column std_score int not null;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_info
+    -> ;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| std_id     | varchar(100) | NO   | PRI | NULL    |       |
+| std_name   | varchar(100) | NO   |     | NULL    |       |
+| std_age    | int          | NO   |     | NULL    |       |
+| std_grade  | int          | NO   |     | NULL    |       |
+| std_gender | varchar(100) | NO   |     | NULL    |       |
+| std_phone  | varchar(100) | NO   |     | NULL    |       |
+| std_score  | int          | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student_info
+    -> drop column std_score;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_info
+    -> ;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| std_id     | varchar(100) | NO   | PRI | NULL    |       |
+| std_name   | varchar(100) | NO   |     | NULL    |       |
+| std_age    | int          | NO   |     | NULL    |       |
+| std_grade  | int          | NO   |     | NULL    |       |
+| std_gender | varchar(100) | NO   |     | NULL    |       |
+| std_phone  | varchar(100) | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student_info
+    -> change column std_gender std_score int not null;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_info
+    -> ;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| std_id    | varchar(100) | NO   | PRI | NULL    |       |
+| std_name  | varchar(100) | NO   |     | NULL    |       |
+| std_age   | int          | NO   |     | NULL    |       |
+| std_grade | int          | NO   |     | NULL    |       |
+| std_score | int          | NO   |     | NULL    |       |
+| std_phone | varchar(100) | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student_info drop column std_score;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_info
+    -> ;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| std_id    | varchar(100) | NO   | PRI | NULL    |       |
+| std_name  | varchar(100) | NO   |     | NULL    |       |
+| std_age   | int          | NO   |     | NULL    |       |
+| std_grade | int          | NO   |     | NULL    |       |
+| std_phone | varchar(100) | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student_info
+    -> modify column std_age varchar(50);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student_info rename std_info;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| std_info          |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> desc std_info
+    -> ;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| std_id    | varchar(100) | NO   | PRI | NULL    |       |
+| std_name  | varchar(100) | NO   |     | NULL    |       |
+| std_age   | varchar(50)  | YES  |     | NULL    |       |
+| std_grade | int          | NO   |     | NULL    |       |
+| std_phone | varchar(100) | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table std_info drop primary key;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc std_info;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| std_id    | varchar(100) | NO   |     | NULL    |       |
+| std_name  | varchar(100) | NO   |     | NULL    |       |
+| std_age   | varchar(50)  | YES  |     | NULL    |       |
+| std_grade | int          | NO   |     | NULL    |       |
+| std_phone | varchar(100) | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table std_info add primary key(std_name);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc std_info;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| std_id    | varchar(100) | NO   |     | NULL    |       |
+| std_name  | varchar(100) | NO   | PRI | NULL    |       |
+| std_age   | varchar(50)  | YES  |     | NULL    |       |
+| std_grade | int          | NO   |     | NULL    |       |
+| std_phone | varchar(100) | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> drop table std_info;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop database student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show databasess;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databasess' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use user;
+ERROR 1049 (42000): Unknown database 'user'
+mysql> create database user
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use user;
+Database changed
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| user               |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> create table user_info
+    -> (
+    -> id int not null,
+    -> name varchar(50) not null,
+    -> email varchar(200) not null,
+    -> profile image varchar(1000) not null,
+    -> password varchar(1000) not null,
+    -> primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'image varchar(1000) not null,
+password varchar(1000) not null,
+primary key(id))' at line 6
+mysql> desc user_info;
+ERROR 1146 (42S02): Table 'user.user_info' doesn't exist
+mysql> create table user_info{
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '{' at line 1
+mysql> create table user_info(
+    -> id int not null,
+    -> name varchar(50) not null,
+    -> email varchar(200) not null,
+    -> profile_image varchar(1000) not null,
+    -> password varchar(1000) not null,
+    -> primary key(id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> alter table user_info modify column email int not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc user_info;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| id            | int           | NO   | PRI | NULL    |       |
+| name          | varchar(50)   | NO   |     | NULL    |       |
+| email         | int           | NO   |     | NULL    |       |
+| profile_image | varchar(1000) | NO   |     | NULL    |       |
+| password      | varchar(1000) | NO   |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table user_info drop primary key;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table user_info add primary key(name);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc user_info;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| id            | int           | NO   |     | NULL    |       |
+| name          | varchar(50)   | NO   | PRI | NULL    |       |
+| email         | int           | NO   |     | NULL    |       |
+| profile_image | varchar(1000) | NO   |     | NULL    |       |
+| password      | varchar(1000) | NO   |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table user_info change column email created_at;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table user_info change column email created_at int not null;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc user_info;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| id            | int           | NO   |     | NULL    |       |
+| name          | varchar(50)   | NO   | PRI | NULL    |       |
+| created_at    | int           | NO   |     | NULL    |       |
+| profile_image | varchar(1000) | NO   |     | NULL    |       |
+| password      | varchar(1000) | NO   |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table usr_info add column update_at varchar(100) not null;
+ERROR 1146 (42S02): Table 'user.usr_info' doesn't exist
+mysql> alter table user_info add column update_at varchar(100) not null;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc user_info;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| id            | int           | NO   |     | NULL    |       |
+| name          | varchar(50)   | NO   | PRI | NULL    |       |
+| created_at    | int           | NO   |     | NULL    |       |
+| profile_image | varchar(1000) | NO   |     | NULL    |       |
+| password      | varchar(1000) | NO   |     | NULL    |       |
+| update_at     | varchar(100)  | NO   |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql>
