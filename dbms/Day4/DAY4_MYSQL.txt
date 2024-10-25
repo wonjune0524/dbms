@@ -1,0 +1,416 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.39 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| user               |
+| world              |
++--------------------+
+7 rows in set (0.03 sec)
+
+mysql> create database student;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use student;
+Database changed
+mysql> create table stu_info(
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table student_info(
+    -> studentID int PK not null,
+    -> firstname varchar(50) not null,
+    -> lastname varchar(50) not null,
+    -> age int not null,
+    -> major varchar(50) not null,
+    -> enrollmentDate date not null,
+    -> primary key(studentID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PK not null,
+firstname varchar(50) not null,
+lastname varchar(50) not null,
+age ' at line 2
+mysql> create table students(
+    -> studentID int primary key,
+    -> firstname varchar(50),
+    -> lastname varchar(50),
+    -> age int,
+    -> major varchar(50),
+    -> enrollmentDate date);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc students;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| studentID      | int         | NO   | PRI | NULL    |       |
+| firstname      | varchar(50) | YES  |     | NULL    |       |
+| lastname       | varchar(50) | YES  |     | NULL    |       |
+| age            | int         | YES  |     | NULL    |       |
+| major          | varchar(50) | YES  |     | NULL    |       |
+| enrollmentDate | date        | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> insert into students(studentID, firstname, lastname, age, major, enrollmentDate)
+    -> values(1, 'john', 'deo', '20', 'computer science', '2022-09-01'),
+    -> (2, 'jane', 'smith', '22', 'mathematics', '2021-09-01'),
+    -> (3, 'alice', 'johnson', '19', 'physics', '2023-01-15'),
+    -> (4, 'bob', 'williams', '23'
+    -> , 'chemistry', '2020-08-20'),
+    -> (5, 'charlie', 'brown', '21', 'biology', '2021-09-01'),
+    -> (6, 'david', 'jones', '24', 'mathematics', '2019-09-01'),
+    -> (7, 'eve', 'davis', '22', 'computer science', '2022-01-10');
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select firstname from students;
++-----------+
+| firstname |
++-----------+
+| john      |
+| jane      |
+| alice     |
+| bob       |
+| charlie   |
+| david     |
+| eve       |
++-----------+
+7 rows in set (0.00 sec)
+
+mysql> select age from students;
++------+
+| age  |
++------+
+|   20 |
+|   22 |
+|   19 |
+|   23 |
+|   21 |
+|   24 |
+|   22 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> select studentID from students;
++-----------+
+| studentID |
++-----------+
+|         1 |
+|         2 |
+|         3 |
+|         4 |
+|         5 |
+|         6 |
+|         7 |
++-----------+
+7 rows in set (0.00 sec)
+
+mysql> select age, major from students;
++------+------------------+
+| age  | major            |
++------+------------------+
+|   20 | computer science |
+|   22 | mathematics      |
+|   19 | physics          |
+|   23 | chemistry        |
+|   21 | biology          |
+|   24 | mathematics      |
+|   22 | computer science |
++------+------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from students where major = 'computer science';
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from students where major = 'mathematics';
++-----------+-----------+----------+------+-------------+----------------+
+| studentID | firstname | lastname | age  | major       | enrollmentDate |
++-----------+-----------+----------+------+-------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics | 2021-09-01     |
+|         6 | david     | jones    |   24 | mathematics | 2019-09-01     |
++-----------+-----------+----------+------+-------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from students where age > 21;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from students where age >= 24;
++-----------+-----------+----------+------+-------------+----------------+
+| studentID | firstname | lastname | age  | major       | enrollmentDate |
++-----------+-----------+----------+------+-------------+----------------+
+|         6 | david     | jones    |   24 | mathematics | 2019-09-01     |
++-----------+-----------+----------+------+-------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where age = 22;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from students where major != 'computer science';
++-----------+-----------+----------+------+-------------+----------------+
+| studentID | firstname | lastname | age  | major       | enrollmentDate |
++-----------+-----------+----------+------+-------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics     | 2023-01-15     |
+|         4 | bob       | williams |   23 | chemistry   | 2020-08-20     |
+|         5 | charlie   | brown    |   21 | biology     | 2021-09-01     |
+|         6 | david     | jones    |   24 | mathematics | 2019-09-01     |
++-----------+-----------+----------+------+-------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students where age between age >= 19 and age <= 22;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>= 19 and age <= 22' at line 1
+mysql> select * from students where age between 19 and 22;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students where enrollmentDate between '2023-01-01' and '2023-12-31';
++-----------+-----------+----------+------+---------+----------------+
+| studentID | firstname | lastname | age  | major   | enrollmentDate |
++-----------+-----------+----------+------+---------+----------------+
+|         3 | alice     | johnson  |   19 | physics | 2023-01-15     |
++-----------+-----------+----------+------+---------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where age > 22 or major = 'mathematics';
++-----------+-----------+----------+------+-------------+----------------+
+| studentID | firstname | lastname | age  | major       | enrollmentDate |
++-----------+-----------+----------+------+-------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics | 2021-09-01     |
+|         4 | bob       | williams |   23 | chemistry   | 2020-08-20     |
+|         6 | david     | jones    |   24 | mathematics | 2019-09-01     |
++-----------+-----------+----------+------+-------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from students where not major = 'computer science';
++-----------+-----------+----------+------+-------------+----------------+
+| studentID | firstname | lastname | age  | major       | enrollmentDate |
++-----------+-----------+----------+------+-------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics     | 2023-01-15     |
+|         4 | bob       | williams |   23 | chemistry   | 2020-08-20     |
+|         5 | charlie   | brown    |   21 | biology     | 2021-09-01     |
+|         6 | david     | jones    |   24 | mathematics | 2019-09-01     |
++-----------+-----------+----------+------+-------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students where not age = 23;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from students where (age >= 18 or major = 'mathematics') and enrollmentDate > '2023-01-01';
++-----------+-----------+----------+------+---------+----------------+
+| studentID | firstname | lastname | age  | major   | enrollmentDate |
++-----------+-----------+----------+------+---------+----------------+
+|         3 | alice     | johnson  |   19 | physics | 2023-01-15     |
++-----------+-----------+----------+------+---------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where (major = 'physics' or studentID <= 5) and age >= 22;
++-----------+-----------+----------+------+-------------+----------------+
+| studentID | firstname | lastname | age  | major       | enrollmentDate |
++-----------+-----------+----------+------+-------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics | 2021-09-01     |
+|         4 | bob       | williams |   23 | chemistry   | 2020-08-20     |
++-----------+-----------+----------+------+-------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> firstname like 'jane'
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'firstname like 'jane'' at line 1
+mysql> select * from students where firstname like 'jane';
++-----------+-----------+----------+------+-------------+----------------+
+| studentID | firstname | lastname | age  | major       | enrollmentDate |
++-----------+-----------+----------+------+-------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics | 2021-09-01     |
++-----------+-----------+----------+------+-------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where firstname like '%e';
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from students where firstname = 'john'
+    -> ;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
++-----------+-----------+----------+------+------------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where firstname '%s%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''%s%'' at line 1
+mysql> select * from students where firstname like '%s%';
+Empty set (0.00 sec)
+
+mysql> select * from students where lastname like '%s%';
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
++-----------+-----------+----------+------+------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from students order by age asc;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
++-----------+-----------+----------+------+------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from students order by major asc, age desc;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
++-----------+-----------+----------+------+------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from students order by enrollmentDate desc;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
++-----------+-----------+----------+------+------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from students order by major asc, age desc;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
++-----------+-----------+----------+------+------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from students order by lastname asc, studentID desc;
++-----------+-----------+----------+------+------------------+----------------+
+| studentID | firstname | lastname | age  | major            | enrollmentDate |
++-----------+-----------+----------+------+------------------+----------------+
+|         5 | charlie   | brown    |   21 | biology          | 2021-09-01     |
+|         7 | eve       | davis    |   22 | computer science | 2022-01-10     |
+|         1 | john      | deo      |   20 | computer science | 2022-09-01     |
+|         3 | alice     | johnson  |   19 | physics          | 2023-01-15     |
+|         6 | david     | jones    |   24 | mathematics      | 2019-09-01     |
+|         2 | jane      | smith    |   22 | mathematics      | 2021-09-01     |
+|         4 | bob       | williams |   23 | chemistry        | 2020-08-20     |
++-----------+-----------+----------+------+------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql>
